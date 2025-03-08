@@ -1,0 +1,289 @@
+-- MySQL dump 10.13  Distrib 8.0.37, for Win64 (x86_64)
+--
+-- Host: localhost    Database: salesproject
+-- ------------------------------------------------------
+-- Server version	8.0.37
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `cart_items`
+--
+
+DROP TABLE IF EXISTS `cart_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cart_items` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cart_items`
+--
+
+LOCK TABLES `cart_items` WRITE;
+/*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
+INSERT INTO `cart_items` VALUES (3,38,45,67),(4,38,5,80),(5,38,6,2),(6,38,43,1),(30,41,1,1),(48,39,13,5),(62,42,1,1),(77,43,2,1),(83,45,5,1),(85,40,4,1),(86,40,3,1),(87,40,9,1),(88,40,2,3),(96,46,3,1),(97,46,4,1),(98,47,3,1);
+/*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categories` (
+  `category_id` int NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`category_id`),
+  UNIQUE KEY `category_name` (`category_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories`
+--
+
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (3,'Accessories'),(5,'Mobile Accessories'),(4,'Mobiles'),(2,'Pants'),(1,'Shirts');
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jwt_tokens`
+--
+
+DROP TABLE IF EXISTS `jwt_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jwt_tokens` (
+  `token_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `expires_at` datetime NOT NULL,
+  PRIMARY KEY (`token_id`),
+  UNIQUE KEY `unique_user_token` (`user_id`),
+  CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jwt_tokens`
+--
+
+LOCK TABLES `jwt_tokens` WRITE;
+/*!40000 ALTER TABLE `jwt_tokens` DISABLE KEYS */;
+INSERT INTO `jwt_tokens` VALUES (47,45,'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTaGFua2FyYSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTczODE3MTEzOCwiZXhwIjoxNzM4MTc0NzM4fQ.1rBe1Db7QWL76Gk2anG4l5E5nVR_Bmuj2fVzu9If1PxHnFqxZozCCnnsWdsipAckz-j5RMCMzpGKkFbaK1-axw','2025-01-29 23:48:58'),(73,44,'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYWdhZGFsYSBhZGFyc2giLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mzk4Njg5OTMsImV4cCI6MTczOTg3MjU5M30.AaK7_ZXsu7J5MWqJZTcbgxL5rIcEkxy3KwVsqfxWMl2S4vCFM1lpX3CreOovIYQmYfYinh70DDZoHP__MtJdrA','2025-02-18 15:26:33'),(75,40,'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aWpheSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc0MDczNDQ5OCwiZXhwIjoxNzQwNzM4MDk4fQ.Fq1wUYYRnq3SQIpNoTEx09V-jd-ZchIZbNFpMlr84t2HwDv66bbTS1oFSyhT6XqNirZlYWe1TCYzJjUYOIy1bA','2025-02-28 15:51:39'),(76,47,'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnYXlsZSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc0MDczNTc3OCwiZXhwIjoxNzQwNzM5Mzc4fQ.54MJ5VrfKxz5N0bWCsvj3-vh0WehSTR8U0m8jCFxtDs4BzAj7OutV4eDmEG5sqFGi46VzhzJoIrDTNIo7h2aJQ','2025-02-28 16:12:59'),(80,48,'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYXJ0aWNrIiwicm9sZSI6IkNVU1RPTUVSIiwiaWF0IjoxNzQxMDAzNzk2LCJleHAiOjE3NDEwMDczOTZ9.8QjF2tVpPhwYLgMIwsefqMZzBCt1m_myrUUwdasLr2d9fFpGBQUR1EJBF6CeSXXfCUHMcDbaRXoPQd2C6mBPAg','2025-03-03 18:39:57');
+/*!40000 ALTER TABLE `jwt_tokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order_items`
+--
+
+DROP TABLE IF EXISTS `order_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_items` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` varchar(255) NOT NULL,
+  `product_id` int NOT NULL,
+  `quantity` int NOT NULL,
+  `price_per_unit` decimal(38,2) NOT NULL,
+  `total_price` decimal(38,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_items`
+--
+
+LOCK TABLES `order_items` WRITE;
+/*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
+INSERT INTO `order_items` VALUES (10,'order_PkNsI9MZNpifsV',2,2,599.99,1199.98),(11,'order_PkNuyKTZWCBmgy',11,1,1499.99,1499.99),(12,'order_PkNuyKTZWCBmgy',14,1,1799.99,1799.99),(13,'order_PkOB2B7KepbKD7',3,1,699.99,699.99),(14,'order_PkOB2B7KepbKD7',1,1,499.99,499.99),(15,'order_PkOB2B7KepbKD7',6,1,999.99,999.99),(16,'order_PkOB2B7KepbKD7',7,1,1099.99,1099.99),(17,'order_PkOCZ6jdHaMJgl',1,1,499.99,499.99),(18,'order_PkOCZ6jdHaMJgl',17,1,899.50,899.50),(19,'order_PkOCZ6jdHaMJgl',16,1,799.99,799.99),(20,'order_PkOCZ6jdHaMJgl',31,1,18999.99,18999.99),(21,'order_PkOF5SJ4dGdlyI',7,1,1099.99,1099.99),(22,'order_PkOF5SJ4dGdlyI',48,1,22999.00,22999.00),(23,'order_Pm7qKqyVJh7Af6',4,1,799.99,799.99),(24,'order_Pm7qKqyVJh7Af6',1,1,499.99,499.99),(25,'order_PmrFRb1cssGZUC',3,1,699.99,699.99),(26,'order_PmrFRb1cssGZUC',2,1,599.99,599.99),(27,'order_PmrHeWfUgPWUWD',4,8,799.99,6399.92),(28,'order_PmrHeWfUgPWUWD',7,3,1099.99,3299.97),(29,'order_PmrHeWfUgPWUWD',1,1,499.99,499.99),(30,'order_PncX0V7uoFUcA3',15,2,1899.99,3799.98),(31,'order_PncX0V7uoFUcA3',4,2,799.99,1599.98),(32,'order_PncX0V7uoFUcA3',3,1,699.99,699.99),(33,'order_PncYhAMkxDBLlm',2,1,599.99,599.99),(34,'order_Por9YamuDRsJp0',4,2,799.99,1599.98),(35,'order_Por9YamuDRsJp0',3,1,699.99,699.99),(37,'order_PpKrCG35IErNg1',4,1,799.99,799.99),(38,'order_PpKrCG35IErNg1',10,1,1399.99,1399.99),(39,'order_PpLGI8XdB9l15z',3,4,699.99,2799.96),(40,'order_PpLGI8XdB9l15z',10,2,1399.99,2799.98),(41,'order_Px32wuog3F1yxd',17,2,899.50,1799.00),(42,'order_Px32wuog3F1yxd',4,1,799.99,799.99),(43,'order_Px6EUaXMHnKM9j',4,1,799.99,799.99),(44,'order_Px6EUaXMHnKM9j',64,1,749.75,749.75),(45,'order_Q2JRZoCbX7TPug',1,1,499.99,499.99),(46,'order_Q2JRZoCbX7TPug',2,1,599.99,599.99);
+/*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders` (
+  `order_id` varchar(255) NOT NULL,
+  `user_id` int NOT NULL,
+  `total_amount` decimal(38,2) NOT NULL,
+  `status` enum('PENDING','SUCCESS','FAILED') DEFAULT 'PENDING',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`order_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES ('order_PkDlFzvFlBljDp',39,8499.99,'PENDING','2025-01-16 18:54:34',NULL),('order_PkNADz2m52AYQt',39,8499.99,'PENDING','2025-01-17 04:06:27',NULL),('order_PkNfcwZr98z6kl',40,11799.92,'PENDING','2025-01-17 04:36:10',NULL),('order_PkNfn5EvBwvnFr',40,11799.92,'PENDING','2025-01-17 04:36:19',NULL),('order_PkNg2MFyJzsBzA',40,599.99,'PENDING','2025-01-17 04:36:33',NULL),('order_PkNiml4uZl3QNV',39,8499.99,'PENDING','2025-01-17 04:39:09',NULL),('order_PkNj03eUZE9T5T',40,599.99,'PENDING','2025-01-17 04:39:21',NULL),('order_PkNkr7WGMmDV5c',40,1199.98,'PENDING','2025-01-17 04:41:07',NULL),('order_PkNl9YHE0IaaaT',40,1199.98,'PENDING','2025-01-17 04:41:24',NULL),('order_PkNlo8DGe0SKu2',40,1199.98,'PENDING','2025-01-17 04:42:01',NULL),('order_PkNlx7w3Ie6kZQ',40,1199.98,'PENDING','2025-01-17 04:42:09',NULL),('order_PkNrmId7zXWel9',40,1199.98,'PENDING','2025-01-17 04:47:40',NULL),('order_PkNsI9MZNpifsV',40,1199.98,'SUCCESS','2025-01-17 04:48:09','2025-01-17 04:49:42'),('order_PkNuCQdlC83WJ0',40,3299.98,'PENDING','2025-01-17 04:49:57',NULL),('order_PkNuyKTZWCBmgy',40,3299.98,'SUCCESS','2025-01-17 04:50:41','2025-01-17 04:54:18'),('order_PkOB2B7KepbKD7',40,3299.96,'SUCCESS','2025-01-17 05:05:54','2025-01-17 05:06:33'),('order_PkOCZ6jdHaMJgl',40,21199.47,'SUCCESS','2025-01-17 05:07:21','2025-01-17 05:08:12'),('order_PkOF5SJ4dGdlyI',42,24098.99,'SUCCESS','2025-01-17 05:09:44','2025-01-17 05:10:21'),('order_Pm0ZinxUZM0qqD',40,799.99,'PENDING','2025-01-21 07:18:38',NULL),('order_Pm7qKqyVJh7Af6',40,1299.98,'SUCCESS','2025-01-21 14:25:13','2025-01-21 14:26:32'),('order_PmrFRb1cssGZUC',40,1299.98,'SUCCESS','2025-01-23 10:50:13','2025-01-23 10:51:40'),('order_PmrHeWfUgPWUWD',31,10199.88,'SUCCESS','2025-01-23 10:52:18','2025-01-23 10:53:33'),('order_PncPutrZ1QiGpS',40,4599.97,'PENDING','2025-01-25 08:58:43',NULL),('order_PncQ5w40qPoTaX',40,4599.97,'PENDING','2025-01-25 08:58:53',NULL),('order_PncQOIsfr64vgg',40,4599.97,'PENDING','2025-01-25 08:59:10',NULL),('order_PncTP4rSR8ArRr',40,6099.95,'PENDING','2025-01-25 09:02:01',NULL),('order_PncX0V7uoFUcA3',40,6099.95,'SUCCESS','2025-01-25 09:05:26','2025-01-25 09:06:32'),('order_PncYhAMkxDBLlm',40,599.99,'SUCCESS','2025-01-25 09:07:01','2025-01-25 09:09:20'),('order_PneWZ7QvmiGefh',40,899.99,'PENDING','2025-01-25 11:02:23',NULL),('order_PneXYtSG57ATRf',40,899.99,'PENDING','2025-01-25 11:03:20',NULL),('order_Por9YamuDRsJp0',40,3198.97,'SUCCESS','2025-01-28 12:02:38','2025-01-28 12:03:24'),('order_PoWgQMimMobQvP',40,2299.97,'PENDING','2025-01-27 16:01:10',NULL),('order_PpK5IXPX2e2vgX',40,699.99,'PENDING','2025-01-29 16:20:43',NULL),('order_PpKrCG35IErNg1',45,2199.98,'SUCCESS','2025-01-29 17:06:04','2025-01-29 17:06:46'),('order_PpLGI8XdB9l15z',40,5599.94,'SUCCESS','2025-01-29 17:29:49','2025-01-29 17:30:38'),('order_Px32wuog3F1yxd',46,2598.99,'SUCCESS','2025-02-18 04:52:42','2025-02-18 04:53:39'),('order_Px5XzfgjlfULo4',46,2399.97,'PENDING','2025-02-18 07:19:28',NULL),('order_Px6EUaXMHnKM9j',46,1549.74,'SUCCESS','2025-02-18 07:59:42','2025-02-18 08:00:24'),('order_Px7ANAzaoi94PR',46,1499.98,'PENDING','2025-02-18 08:54:30',NULL),('order_Q2IKOt64tK61if',48,1099.98,'PENDING','2025-03-03 11:04:38',NULL),('order_Q2JRZoCbX7TPug',48,1099.98,'SUCCESS','2025-03-03 12:10:08','2025-03-03 12:11:12');
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `otp`
+--
+
+DROP TABLE IF EXISTS `otp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `otp` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `otp` int NOT NULL,
+  `expiry_time` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `otp`
+--
+
+LOCK TABLES `otp` WRITE;
+/*!40000 ALTER TABLE `otp` DISABLE KEYS */;
+INSERT INTO `otp` VALUES (1,'dhoni@gmail.com',247714,'2025-01-03 18:55:23','2025-01-03 18:50:23'),(2,'dhoni@gmail.com',892344,'2025-01-03 19:18:59','2025-01-03 19:13:59'),(3,'dhoni@gmail.com',247751,'2025-01-03 19:19:01','2025-01-03 19:14:01'),(4,'dhoni@gmail.com',514111,'2025-01-03 19:19:03','2025-01-03 19:14:03'),(5,'dhoni@gmail.com',345607,'2025-01-03 19:19:04','2025-01-03 19:14:04'),(6,'dhoni@gmail.com',309845,'2025-01-03 19:19:04','2025-01-03 19:14:04'),(7,'dhoni@gmail.com',826136,'2025-01-03 19:19:06','2025-01-03 19:14:06'),(8,'dhoni@gmail.com',591946,'2025-01-03 19:19:07','2025-01-03 19:14:07'),(9,'dhoni@gmail.com',319996,'2025-01-03 19:19:07','2025-01-03 19:14:07'),(10,'dhoni@gmail.com',495550,'2025-01-03 19:19:10','2025-01-03 19:14:10'),(11,'dhoni@gmail.com',575679,'2025-01-03 19:19:10','2025-01-03 19:14:10'),(12,'dhoni@gmail.com',507997,'2025-01-03 19:19:10','2025-01-03 19:14:10'),(13,'dhoni@gmail.com',661922,'2025-01-03 19:19:12','2025-01-03 19:14:12'),(14,'dhoni@gmail.com',809857,'2025-01-03 19:19:12','2025-01-03 19:14:12'),(15,'dhoni@gmail.com',782309,'2025-01-03 19:19:12','2025-01-03 19:14:12'),(16,'dhoni@gmail.com',879714,'2025-01-03 19:19:15','2025-01-03 19:14:15'),(17,'dhoni@gmail.com',817998,'2025-01-03 19:19:16','2025-01-03 19:14:16'),(18,'adarshpagadala6@gmail.com',329284,'2025-01-03 19:22:19','2025-01-03 19:17:19'),(19,'adarshpagadala6@gmail.com',873801,'2025-01-03 19:23:45','2025-01-03 19:18:45'),(20,'adarshpagadala6@gmail.com',684570,'2025-01-03 19:50:35','2025-01-03 19:45:35'),(21,'adarshpagadala6@gmail.com',625922,'2025-01-03 19:51:11','2025-01-03 19:46:11'),(22,'adarshpagadala6@gmail.com',887528,'2025-01-03 19:54:50','2025-01-03 19:49:50'),(23,'adarshpagadala6@gmail.com',789283,'2025-01-03 19:57:55','2025-01-03 19:52:55'),(24,'adarshpagadala6@gmail.com',687322,'2025-01-03 19:58:11','2025-01-03 19:53:11'),(25,'adarshpagadala6@gmail.com',890523,'2025-01-03 19:58:18','2025-01-03 19:53:18'),(26,'adarshpagadala6@gmail.com',567046,'2025-01-03 20:09:01','2025-01-03 20:04:01'),(27,'adarshpagadala8@gmail.com',936348,'2025-01-03 20:12:13','2025-01-03 20:07:13'),(28,'jakeerh303@gmail.com',943321,'2025-01-04 14:47:11','2025-01-04 14:42:11'),(29,'shaiksohail7312@gmail.com',213303,'2025-01-05 13:40:15','2025-01-05 13:35:15'),(30,'kiranmaireddy9977@gmail.com',122659,'2025-01-05 14:08:37','2025-01-05 14:03:37'),(31,'adarshpagadala6@gmail.com',804733,'2025-01-07 13:15:10','2025-01-07 13:10:10'),(32,'adarshpagadala6@gmail.com',969740,'2025-01-07 18:09:37','2025-01-07 18:04:37'),(33,'adarshpagadala6@gmail.com',246383,'2025-01-07 18:26:29','2025-01-07 18:21:29'),(34,'adarshpagadala6@gmail.com',502673,'2025-01-07 18:31:41','2025-01-07 18:26:41');
+/*!40000 ALTER TABLE `otp` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `productimages`
+--
+
+DROP TABLE IF EXISTS `productimages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `productimages` (
+  `image_id` int NOT NULL AUTO_INCREMENT,
+  `product_id` int NOT NULL,
+  `image_url` text NOT NULL,
+  PRIMARY KEY (`image_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `productimages_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productimages`
+--
+
+LOCK TABLES `productimages` WRITE;
+/*!40000 ALTER TABLE `productimages` DISABLE KEYS */;
+INSERT INTO `productimages` VALUES (1,1,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt1.png'),(2,2,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt2.png'),(3,3,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt3.png'),(4,4,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt4.png'),(5,5,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt5.png'),(6,6,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt6.png'),(7,7,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt7.png'),(8,8,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt8.png'),(9,9,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt9.png'),(10,10,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt10.png'),(11,11,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt11.png'),(12,12,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt12.png'),(13,13,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt13.png'),(14,14,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt14.png'),(15,15,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt15.png'),(16,16,'https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),(17,17,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant2.png'),(18,18,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant3.png'),(19,19,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant4.png'),(20,20,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant5.png'),(21,21,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant6.png'),(22,22,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant7.png'),(23,23,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant8.png'),(24,24,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant9.png'),(25,25,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant10.png'),(26,26,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant11.png'),(27,27,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant12.png'),(28,28,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant13.png'),(29,29,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant14.png'),(30,30,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/pant15.png'),(31,31,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv1.png'),(32,32,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv2.png'),(33,33,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv3.png'),(34,34,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv4.png'),(35,35,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv5.png'),(36,36,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv6.png'),(37,37,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv7.png'),(38,38,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv8.png'),(39,39,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv9.png'),(40,40,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv10.png'),(41,41,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv11.png'),(42,42,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv12.png'),(43,43,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv13.png'),(44,44,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv14.png'),(45,45,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/tv15.png'),(46,46,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph1.png'),(47,47,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph2.png'),(48,48,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph3.png'),(49,49,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph4.png'),(50,50,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph5.png'),(51,51,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph6.png'),(52,52,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph7.png'),(53,53,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph8.png'),(54,54,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph9.png'),(55,55,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph10.png'),(56,56,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph11.png'),(57,57,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph12.png'),(58,58,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph13.png'),(59,59,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph14.png'),(60,60,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ph1.png'),(61,61,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ma1.png'),(62,62,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ma2.png'),(63,63,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ma3.png'),(64,64,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ma4.png'),(65,65,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ma5.png'),(66,66,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ma6.png'),(67,67,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ma7.png'),(68,68,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ma8.png'),(69,69,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/ma9.png'),(103,70,'https://kodnest-docs.b-cdn.net/salessavvy/COSTOMER%20IMAGES/shirt1.png');
+/*!40000 ALTER TABLE `productimages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `products` (
+  `product_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` text,
+  `price` decimal(10,2) NOT NULL,
+  `stock` int NOT NULL,
+  `category_id` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`product_id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (1,'Shirt1','Stylish Shirt1',499.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(2,'Shirt2','Stylish Shirt2',599.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(3,'Shirt3','Stylish Shirt3',699.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(4,'Shirt4','Stylish Shirt4',799.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(5,'Shirt5','Stylish Shirt5',899.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(6,'Shirt6','Stylish Shirt6',999.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(7,'Shirt7','Stylish Shirt7',1099.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(8,'Shirt8','Stylish Shirt8',1199.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(9,'Shirt9','Stylish Shirt9',1299.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(10,'Shirt10','Stylish Shirt10',1399.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(11,'Shirt11','Stylish Shirt11',1499.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(12,'Shirt12','Stylish Shirt12',1599.99,100,1,'2025-01-05 10:39:05','2025-01-05 10:39:05'),(13,'Shirt13','Stylish Shirt13',1699.99,100,1,'2025-01-05 10:40:42','2025-01-05 10:40:42'),(14,'Shirt14','Stylish Shirt14',1799.99,100,1,'2025-01-05 10:40:42','2025-01-05 10:40:42'),(15,'Shirt15','Stylish Shirt15',1899.99,100,1,'2025-01-05 10:40:42','2025-01-05 10:40:42'),(16,'Pant1','Stylish Pant1',799.99,50,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(17,'Pant2','Stylish Pant2',899.50,45,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(18,'Pant3','Stylish Pant3',759.99,40,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(19,'Pant4','Stylish Pant4',689.99,55,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(20,'Pant5','Stylish Pant5',999.99,30,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(21,'Pant6','Stylish Pant6',699.99,20,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(22,'Pant7','Stylish Pant7',849.50,35,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(23,'Pant8','Stylish Pant8',799.00,60,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(24,'Pant9','Stylish Pant9',729.99,25,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(25,'Pant10','Stylish Pant10',889.99,50,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(26,'Pant11','Stylish Pant11',819.99,40,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(27,'Pant12','Stylish Pant12',959.99,20,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(28,'Pant13','Stylish Pant13',999.00,70,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(29,'Pant14','Stylish Pant14',689.50,80,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(30,'Pant15','Stylish Pant15',899.99,90,2,'2025-01-04 19:08:11','2025-01-04 19:08:11'),(31,'TV1','Smart TV1 with HD display',18999.99,20,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(32,'TV2','Smart TV2 with Full HD display',21999.50,15,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(33,'TV3','Smart TV3 with 4K display',29999.00,10,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(34,'TV4','Smart TV4 with HDR and Dolby Vision',25999.99,12,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(35,'TV5','Smart TV5 with Ultra HD screen',34999.99,8,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(36,'TV6','Smart TV6 with Alexa Built-in',27999.50,18,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(37,'TV7','Smart TV7 with Android OS',22999.00,22,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(38,'TV8','Smart TV8 with High Refresh Rate',31999.99,14,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(39,'TV9','Smart TV9 with Thin Bezels',24999.99,20,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(40,'TV10','Smart TV10 with AI Upscaling',39999.00,5,3,'2025-01-04 19:28:04','2025-01-04 19:58:22'),(41,'Speaker','Worlds Best',12999.99,50,3,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(42,'Nikon DSLR','Indias best',8999.50,75,3,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(43,'NIK DSLR2','Sales Choice',15999.00,40,3,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(44,'NIC DSLR3','Capture Nik',19999.99,30,3,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(45,'LAPTOP','Smart TV15 with AI Upscaling',24999.99,25,3,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(46,'Mobile1','Mobile6 with gaming chipset and high refresh rate',19999.99,50,4,'2025-01-04 19:31:27','2025-01-04 20:12:48'),(47,'Mobile2','Mobile7 with gaming chipset and high refresh rate',8999.50,55,4,'2025-01-04 19:31:27','2025-01-04 20:12:48'),(48,'Mobile3','Mobile8 with gaming chipset and high refresh rate',22999.00,50,4,'2025-01-04 19:31:27','2025-01-04 20:12:48'),(49,'Mobile4','Mobile9 with gaming chipset and high refresh rate',8999.50,55,4,'2025-01-04 19:31:27','2025-01-04 20:12:48'),(50,'Mobile5','Mobile10 with gaming chipset and high refresh rate',39999.00,50,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(51,'Mobile6','Mobile10 with gaming chipset and high refresh rate',48765.00,30,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(52,'Mobile7','Mobile11 with gaming chipset and high refresh rate',23456.00,200,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(53,'Mobile8','Mobile12with gaming chipset and high refresh rate',34598.00,345,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(54,'Mobile9','Mobile13 with gaming chipset and high refresh rate',45673.00,45,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(55,'Mobile10','Mobile14 with gaming chipset and high refresh rate',34567.00,56,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(56,'Mobile11','Mobile15 with gaming chipset and high refresh rate',23412.00,65,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(57,'Mobile12','Mobile12 with gaming chipset and high refresh rate',89765.00,456,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(58,'Mobile13','Mobile14 with gaming chipset and high refresh rate',23456.00,567,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(59,'Mobile14','Mobile11 with gaming chipset and high refresh rate',99990.00,234,4,'2025-01-04 19:31:27','2025-01-04 20:14:51'),(60,'Mobile15','Mobile15 with gaming chipset and high refresh rate',45389.00,225,4,'2025-01-04 19:31:27','2025-01-06 15:11:42'),(61,'Mobile Accessory 1','A high-quality mobile accessory.',499.99,150,5,'2025-01-06 15:23:10','2025-01-06 15:23:10'),(62,'Mobile Accessory 2','Durable and practical mobile accessory for everyday use.',349.50,200,5,'2025-01-06 15:23:10','2025-01-06 15:23:10'),(63,'Mobile Accessory 3','A versatile mobile accessory with modern features.',899.00,80,5,'2025-01-06 15:23:10','2025-01-06 15:23:10'),(64,'Mobile Accessory 4','Reliable mobile accessory designed for convenience.',749.75,120,5,'2025-01-06 15:23:10','2025-01-06 15:23:10'),(65,'Mobile Accessory 5','Mobile accessory offering comfort and durability.',199.99,250,5,'2025-01-06 15:23:10','2025-01-06 15:23:10'),(66,'Mobile Accessory 6','A stylish and protective mobile accessory.',249.99,500,5,'2025-01-06 15:23:10','2025-01-06 15:23:10'),(67,'Mobile Accessory 7','Practical and efficient mobile accessory for everyday use.',599.00,180,5,'2025-01-06 15:23:10','2025-01-06 15:23:10'),(68,'Mobile Accessory 8','An essential mobile accessory designed for convenience.',399.50,350,5,'2025-01-06 15:23:10','2025-01-06 15:23:10'),(69,'Mobile Accessory 9','A reliable and well-built mobile accessory.',149.00,600,5,'2025-01-06 15:23:10','2025-01-06 15:23:10'),(70,'Shirt new','shoppping',1234.00,3,1,'2025-01-29 13:36:46','2025-01-29 13:36:46');
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('ADMIN','CUSTOMER') NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'adarsh','adarsh@Gmail.com','$2a$10$.lMnVd7YDGu38d3IBi8v9ejoUb9H0d4rgpDYrHFNs.ytRpmHIeL02','ADMIN','2024-12-31 18:51:40','2024-12-31 18:51:40'),(2,'shankar','shankar@123','$2a$10$6V54DJ95WalmkV0.6WbeTet191AI1GnjoL.uXsqvKnL5f.oD5SX3W','CUSTOMER','2025-01-01 10:57:23','2025-01-01 10:57:23'),(3,'salaar','dinosaar@123','$2a$10$2nempoX4z852UwyvwrmkaeP7FLQgkoDz.zFGc6OuxabOFjztyeIKC','ADMIN','2025-01-01 17:34:24','2025-01-01 17:34:24'),(4,'devaratha','dinosaarDeva@123','$2a$10$rkfw1IyF.eG6FNKl8PNhiuFaF7TS8.PT3GsPbFgGVUTeoQZx90akK','ADMIN','2025-01-01 18:25:29','2025-01-01 18:25:29'),(5,'arun','arun@23','$2a$10$esfdcP.dBnK6qkTbOGa6o.OPbN5iGTbU2tkNO7czos2csjD8tTa/q','CUSTOMER','2025-01-01 18:26:21','2025-01-01 18:26:21'),(6,'kiran mey','kiran@aggipetti.com','$2a$10$DMuaL3ej2Y6qS9I.vOvlDOzAmNkr6stYmdpvkY8J9a0PX95a5Kl/m','ADMIN','2025-01-01 18:30:09','2025-01-01 18:30:09'),(7,'Adarsh ','Adarshu@gmail.com','$2a$10$e0F54sGpxcnisKK3uqKNiuqNno6KqpJsaAkf5.NLMpSEQPYzb5pN6','ADMIN','2025-01-01 18:32:45','2025-01-01 18:32:45'),(8,'prabhas','pra@gmail.com','$2a$10$rtQ5d.7VNBMz3culEf3o3uCLskKm7IZCwI2w1Rrwik9vvRSiIz9BS','ADMIN','2025-01-02 08:17:11','2025-01-02 08:17:11'),(9,'karthick','kar@gmail.com','$2a$10$aLDaGRv7y1pho6MoP9k.QO22j12D9H80kOPfZ7Noed4x8AaiKGp62','ADMIN','2025-01-02 17:40:44','2025-01-02 17:40:44'),(10,'jyothi','jyo@gmail.com','$2a$10$UiRtzYE1W92ai2M0Gmk4KOUrmyE.JYhzaFOMIScQjVnpeJo7Yt2S.','ADMIN','2025-01-02 18:17:17','2025-01-02 18:17:17'),(11,'pawan','pawan@gmail.com','$2a$10$CrjXVjKCoAXhwzsMLOpbB.vs.M6GRtArpd30VABrwbj9TWPOoCEZi','CUSTOMER','2025-01-02 18:44:46','2025-01-02 18:44:46'),(12,'prudvi','pru@gmail.com','$2a$10$iDNl6E1CBBJ4G1M5NgJEvuAammCNi20f2UQbT2DoJP/FzNI6iNGR2','CUSTOMER','2025-01-02 18:52:10','2025-01-02 18:52:10'),(13,'danush','dan@gmail.com','$2a$10$HoxyUR12kv1PNNWhOdttDOdHsGE/Mk93e/adRJS3n6U9C4ww0oGki','ADMIN','2025-01-02 19:02:14','2025-01-02 19:02:14'),(14,'kottha','kotha@gmail.com','$2a$10$PZLYM2cOWS59PXdD75lD1.AjyeXf4w6cpiWdmAXdzb6gDGqJEIfPm','CUSTOMER','2025-01-02 19:04:30','2025-01-02 19:04:30'),(15,'raviteja','ravi@gmail.com','$2a$10$2Hn9JfQpKlgRlh5zkiQRu.vs1Ct.oo8J/veNrJhoI2C/J4w9vju3.','CUSTOMER','2025-01-03 09:15:36','2025-01-03 09:15:36'),(16,'sachin','sachin@gmail.com','$2a$10$JoVtv6R5M646M/KLP4aTauOeYYsFiJE893JYQeM6PplErPg3j71Li','CUSTOMER','2025-01-03 09:24:33','2025-01-03 09:24:33'),(17,'raina','raina@gmail.com','$2a$10$OKQRv195aD2mCPR/CnII.OBdoLlRKO/ubo4UUR2uUwK.9C9NSM4We','ADMIN','2025-01-03 09:26:09','2025-01-03 09:26:09'),(18,'dhoni','dhoni@gmail.com','$2a$10$alcAnyuqSwz.FzP1mROGg.3fYPpXWCES01lAQiIpSMtDtft0hUf56','ADMIN','2025-01-03 09:41:10','2025-01-03 09:41:10'),(19,'venky','venky@gmail.com','$2a$10$UmHTK.jM/n8Fpa.FUGeiheVH7FjOSzYdRrjcU0wTEfrEWeHYGsSKO','CUSTOMER','2025-01-03 18:46:56','2025-01-03 18:46:56'),(20,'Adarsh Pagadala','adarshpagadala6@gmail.com','$2a$10$hdlZX15tsH50HA6h4d01/O3TT/TIDhAp8bHNUdLxXnJkLiage35Vm','ADMIN','2025-01-03 19:16:40','2025-01-03 19:16:40'),(21,'karuna','adarshpagadala8@gmail.com','$2a$10$tu/ZyVg6Lw5yAJK.FvKxgu8PI28MDBYkekkfwdtMPHLfuulywxOZO','CUSTOMER','2025-01-03 20:06:56','2025-01-03 20:06:56'),(22,'jakeer','jakeerh303@gmail.com','$2a$10$h2u3EYxOH2hkWG9gSQuMHuGqkq5WQOU/QpLbwOGNwuloixJKd7cNi','CUSTOMER','2025-01-04 14:42:01','2025-01-04 14:42:01'),(23,'sohail','shaiksohail7312@gmail.com','$2a$10$4yrQD15PiPgI4wdoyZzbFO3d9dOKTnK.IeuRtOIOlg4/kyVhweG02','CUSTOMER','2025-01-05 13:35:03','2025-01-05 13:35:03'),(24,'kiran ','kiranmaireddy9977@gmail.com','$2a$10$GMee5xBQpc0vSfO1fppwCuG/lgwGJjA4QlYrRxgkSJ.KcPpy0JN0q','CUSTOMER','2025-01-05 14:02:57','2025-01-05 14:02:57'),(25,'pakistan','pak@gmail.com','$2a$10$ncFNDhK5jTiZrAKoWlUiieBvw0oSR7FFpFVSa6fbIU6pE.NxsVqdq','CUSTOMER','2025-01-07 13:14:04','2025-01-07 13:14:04'),(26,'param','param@gmail.com','$2a$10$qkKqV3SLRgFBej7Kh/edcueFWHsCS0bLV18zktFcJEwQt/I9MvXhi','CUSTOMER','2025-01-07 15:43:47','2025-01-07 15:43:47'),(27,'india','india@gmail.com','$2a$10$dXZxpIkv7jZEAo2qpVlQ2.EVQrBG/8aBabP.mRmJFaHOYk93Gwf2y','CUSTOMER','2025-01-07 16:24:35','2025-01-07 16:24:35'),(28,'sri','sri@gmail.com','$2a$10$6YzwKzh2RfCHzapuYrQwlujwmaATE/kWK/d1pSGkrZVbg2rY4gUBS','CUSTOMER','2025-01-07 18:17:45','2025-01-07 18:17:45'),(29,'bjsd','dnds@gmail.com','$2a$10$IPsvRCfL1WVFMfno7xOKcuJHOlUpo82juBymuuBtW472Ocvd0NuKW','CUSTOMER','2025-01-07 18:23:32','2025-01-07 18:23:32'),(30,'karma','karma@gmail.com','$2a$10$7r9yHOb0EMjTTrXRC2zpL.CW.r.IO2wmDX28/rNYe7yGhir5306RO','ADMIN','2025-01-07 18:25:44','2025-01-07 18:25:44'),(31,'aus','aus@gmail.com','$2a$10$KM784FE3qOLZ0IuEJdNjVOtcqHdK/KbvPmuUkual5vVNuyKvcxoea','CUSTOMER','2025-01-07 18:29:14','2025-01-07 18:29:14'),(32,'jak','jak@gmail.com','$2a$10$ezTRAufeWqZNfxDkVuZFOu6JXY/dro6YvIuSdmIzk.IyybdYVAzre','CUSTOMER','2025-01-08 07:17:40','2025-01-08 07:17:40'),(33,'bs','nbabxb@gmail.com','$2a$10$6fXd7mZ.Dvgy640DpsWWVuhM7kBAM4V4Qjxcomc7J4.XIK.HYuO92','CUSTOMER','2025-01-08 07:19:40','2025-01-08 07:19:40'),(34,'sanka','sanka@gmail.com','$2a$10$EuVSyMWxShh.mqrDhBrdzuMiNZVs/oOZJYo2XZYV5SA6yio.6.x1.','CUSTOMER','2025-01-08 10:32:42','2025-01-08 10:32:42'),(35,'aravindh','ara@gmail.com','$2a$10$.b9RDAW/dF5PnrNPUmpoFee2AjSwgluw5zS7eF1CB4yMDnx.0FMs.','CUSTOMER','2025-01-08 15:10:04','2025-01-08 15:10:04'),(36,'jyothy','jyothy@gmail.com','$2a$10$u265O4RCZfPp3.YZGBr6H.0D.DnwZdM9ZxEB3Uz1Ral9xv2tgEE4G','CUSTOMER','2025-01-08 15:33:25','2025-01-08 15:33:25'),(37,'starmaa','starmaa@gmail.com','$2a$10$2dsHWt9jfR4Q3KOslDz/vedKUUMvEMqchrcggFFgOkfjy1yYQA6Ui','CUSTOMER','2025-01-08 15:43:47','2025-01-08 15:43:47'),(38,'sai','sai@gmail.com','$2a$10$btwq323v/2V6fDeCX/FXwerqjq7toVxu/2YaPjfJSIst3m7Jr57SO','CUSTOMER','2025-01-08 19:41:02','2025-01-08 19:41:02'),(39,'Kiranmai','kiran@123','$2a$10$n5/mSWla0QziFAOToh8N5O81usYyB/3MormyBidyN9JzTIHPcJenO','CUSTOMER','2025-01-10 09:03:59','2025-01-10 09:03:59'),(40,'vijay','vijaya@gmail.com','$2a$10$2i0FUTLCye/jR6ELM.zPVu13RvhzVr5DGGXguAa0/YLyHLgzvVqfK','CUSTOMER','2025-01-12 07:50:23','2025-01-12 07:50:23'),(41,'pushpa','pushparaj@gmail.com','$2a$10$DG1tqP8wlGqzdcMMjQhAve2CfQ6eaddAOJIt5bLdVbisqK8M9SugG','CUSTOMER','2025-01-14 15:16:26','2025-01-14 15:16:26'),(42,'jyothy rani','jyothi@gmail.com','$2a$10$I9UgYZP5lDHCTpersQWeReWA9WM7moob9.Yh6wOgnPmlxWuyJdzle','CUSTOMER','2025-01-17 05:09:14','2025-01-17 05:09:14'),(43,'veer','veer@gmail.com','$2a$10$dU.XkTzNa01z4MaY.gzi9uWUXc18gajl5vIuOm6n8nEmvgRW6mLsW','ADMIN','2025-01-22 06:47:39','2025-01-22 06:47:39'),(44,'pagadala adarsh','pagadala@gmail.com','$2a$10$2Ek5nJ77NDcm5y8Ee2g9B.mW.HajSiwTa5UvuHQGIsbn4uLCsRZaa','ADMIN','2025-01-23 10:58:03','2025-01-23 10:58:03'),(45,'Shankara','Shankarapagadala@gmail.com','$2a$10$wX7vGVLl1vUS7/XWrQKhL.0DxpUgLWu2u3RQtcmY1.Gdc4ZWjIVZW','CUSTOMER','2025-01-29 17:04:17','2025-01-29 17:04:17'),(46,'P.Adarsh','adarshp@gmail.com','$2a$10$qXzgwlcrMLzkQMVWCDJFJ.71115W.7M./Hjaj5Koz1hT.hWFueDou','CUSTOMER','2025-02-18 04:23:39','2025-02-18 04:23:39'),(47,'gayle','gayle@123','$2a$10$DK6PkTjFk1k6/sn.Zp2UYuBCXSpdMmZTVQdlSDXpYSvjFI5pPB9wW','CUSTOMER','2025-02-28 08:21:36','2025-02-28 08:21:36'),(48,'kartick','kartick@gmail.com','$2a$10$qcF.RQos5dRjWrR/AqY2mOHU3NlGMoNuK0SQxER.NF/oxMZu53QIC','CUSTOMER','2025-03-03 05:57:10','2025-03-03 05:57:10');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-03-06 11:26:31
