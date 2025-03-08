@@ -1,0 +1,67 @@
+/* Background Styling */
+
+
+/* Center the profile card */
+.profile-container {
+  background: url('img2.png') no-repeat center center fixed;
+  background-size: 100%; /* Ensures full coverage */
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  width: 100vw; /* Ensures it covers the full width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Profile Card Styling */
+.profile-card {
+  background: rgb(243, 244, 245);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.91);
+  width: 400px;
+  text-align: center;
+  color: rgba(163, 34, 142, 0.989);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Profile Title */
+.profile-title {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Profile Details */
+.profile-info p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+/* Bold Labels */
+.profile-info strong {
+  color: #0e0e0b;
+  font-weight: bold;
+}
+
+/* Return Button */
+.return-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background: #ff5722;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.return-button:hover {
+  background: #e64a19;
+}
